@@ -56,8 +56,7 @@
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
     }
-    /* Gift GIF style */
-    #gift {
+    #gift, #gift2 {
       position: fixed;
       top: 50%;
       left: 50%;
@@ -68,6 +67,7 @@
       z-index: 10;
       border-radius: 12px;
     }
+    #gift2 { z-index: 11; }
   </style>
 </head>
 <body>
@@ -77,8 +77,9 @@
     <button id="no">NO</button>
   </div>
 
-  <!-- Local GIF -->
   <img id="gift" src="jumping-gatito.gif" alt="Valentine Gift">
+  <img id="gift2" src="kisscam.gif" alt="Kiss Cam">
+  <audio id="music" src="careless-whisper.mp3"></audio>
 
   <script>
     const container = document.getElementById("container");
@@ -86,6 +87,8 @@
     const yesButton = document.getElementById("yes");
     const question = document.getElementById("question");
     const gift = document.getElementById("gift");
+    const gift2 = document.getElementById("gift2");
+    const music = document.getElementById("music");
 
     let scale = 1;
     const noTexts = [
@@ -101,10 +104,8 @@
       const containerRect = container.getBoundingClientRect();
       const maxX = containerRect.width - noButton.offsetWidth - padding;
       const maxY = containerRect.height - noButton.offsetHeight - padding;
-
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
-
       noButton.style.left = `${x}px`;
       noButton.style.top = `${y}px`;
     }
@@ -120,7 +121,6 @@
     noButton.addEventListener("mouseenter", dodgeNo);
     noButton.addEventListener("touchstart", dodgeNo);
 
-    // Optional: grow YES if NO is clicked (playful)
     noButton.addEventListener("click", () => {
       scale += 0.35;
       yesButton.style.transform = `scale(${scale})`;
@@ -141,19 +141,21 @@
       noButton.style.display = "none";
       yesButton.style.display = "none";
 
-      // Hearts/confetti
       const heartInterval = setInterval(createHeart, 100);
       setTimeout(() => clearInterval(heartInterval), 2000);
 
-      // Show gift GIF after 1.0 seconds
       setTimeout(() => {
         gift.style.display = "block";
       }, 1000);
+
+      setTimeout(() => {
+        gift.style.display = "none";
+        gift2.style.display = "block";
+        music.play();
+      }, 2500);
     });
 
     window.addEventListener("resize", moveNoButton);
   </script>
 </body>
 </html>
-
-
