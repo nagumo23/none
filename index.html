@@ -77,6 +77,7 @@
     <button id="no">NO</button>
   </div>
 
+  <!-- GIFs and Audio -->
   <img id="gift" src="jumping-gatito.gif" alt="Valentine Gift">
   <img id="gift2" src="kisscam.gif" alt="Kiss Cam">
   <audio id="music" src="careless-whisper.mp3"></audio>
@@ -144,15 +145,17 @@
       const heartInterval = setInterval(createHeart, 100);
       setTimeout(() => clearInterval(heartInterval), 2000);
 
+      // Show first GIF (cat)
       setTimeout(() => {
         gift.style.display = "block";
       }, 1000);
 
+      // Show second GIF (kisscam) + play music
       setTimeout(() => {
         gift.style.display = "none";
         gift2.style.display = "block";
         music.play();
-      }, 2500);
+      }, 2500); // Adjust timing if you want
     });
 
     window.addEventListener("resize", moveNoButton);
